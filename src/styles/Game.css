@@ -1,0 +1,295 @@
+.game-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #1e1e1e;
+  color: #e3e3e3;
+  font-family: Arial, sans-serif;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.game-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #444;
+}
+
+.game-header h1 {
+  margin: 0;
+  font-size: 24px;
+  color: #fff;
+}
+
+.resources-display {
+  display: flex;
+  gap: 15px;
+}
+
+.shimmer-display, .ap-display {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.roll-display {
+  background-color: #2a2a2a;
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 6px;
+  text-align: center;
+}
+
+.roll-result {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.tabs {
+  display: flex;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #444;
+}
+
+.tab {
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.tab:hover {
+  background-color: #333;
+}
+
+.tab.active {
+  background-color: #444;
+  border-bottom: 3px solid #08f3ff;
+}
+
+/* Main Tab Styles */
+.main-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.roll-button-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.roll-button {
+  padding: 15px 30px;
+  font-size: 18px;
+  background-color: #333;
+  color: #e3e3e3;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.roll-button:hover:not(:disabled) {
+  background-color: #444;
+}
+
+.roll-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.roll-button.ready {
+  background-color: #08f3ff;
+  color: #000;
+}
+
+.upgrades-section {
+  margin-bottom: 20px;
+}
+
+.upgrades-section h3 {
+  margin-bottom: 10px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #444;
+}
+
+.upgrades {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 15px;
+}
+
+.upgrade-item {
+  background-color: #2a2a2a;
+  padding: 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.3s;
+}
+
+.upgrade-item:hover {
+  background-color: #333;
+  transform: translateY(-2px);
+}
+
+.upgrade-item.global {
+  background-color: #2a2a40;
+}
+
+.upgrade-item.global:hover {
+  background-color: #333350;
+}
+
+.upgrade-title {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.upgrade-description {
+  font-size: 14px;
+  margin-bottom: 5px;
+  color: #bbb;
+}
+
+.upgrade-price {
+  font-size: 14px;
+  color: #08f3ff;
+}
+
+.recent-rolls {
+  background-color: #2a2a2a;
+  padding: 15px;
+  border-radius: 6px;
+  margin-bottom: 20px;
+}
+
+.recent-rolls h3 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #444;
+}
+
+.rolls-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.roll-item {
+  padding: 5px;
+  border-radius: 4px;
+  background-color: #333;
+}
+
+.best-roll {
+  background-color: #2a2a2a;
+  padding: 15px;
+  border-radius: 6px;
+  margin-bottom: 20px;
+}
+
+.best-roll h3 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #444;
+}
+
+.rebirth-button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.rebirth-button {
+  padding: 15px 30px;
+  font-size: 18px;
+  background-color: #6d47bf;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.rebirth-button:hover {
+  background-color: #923af0;
+}
+
+/* Index Tab Styles */
+.index-content {
+  background-color: #2a2a2a;
+  padding: 15px;
+  border-radius: 6px;
+}
+
+.index-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.index-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: #333;
+  border-radius: 4px;
+}
+
+.index-title {
+  font-weight: bold;
+}
+
+.index-count {
+  font-weight: bold;
+}
+
+/* Achievements Tab Styles */
+.achievements-content {
+  background-color: #2a2a2a;
+  padding: 15px;
+  border-radius: 6px;
+}
+
+/* Stats Tab Styles */
+.stats-content {
+  background-color: #2a2a2a;
+  padding: 15px;
+  border-radius: 6px;
+}
+
+/* Options Tab Styles */
+.options-content {
+  background-color: #2a2a2a;
+  padding: 15px;
+  border-radius: 6px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .game-container {
+    padding: 10px;
+  }
+  
+  .tabs {
+    flex-wrap: wrap;
+  }
+  
+  .tab {
+    padding: 8px 15px;
+    font-size: 14px;
+  }
+  
+  .upgrades {
+    grid-template-columns: 1fr;
+  }
+  
+  .rolls-list {
+    grid-template-columns: 1fr;
+  }
+}

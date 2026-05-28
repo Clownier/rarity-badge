@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <!-- 超级传说 - 带有金色光环、光芒和宝石的八角形徽章 -->
+  <defs>
+    <radialGradient id="goldAura3" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+      <stop offset="0%" stop-color="#ffdf00" stop-opacity="1"/>
+      <stop offset="70%" stop-color="#ffdf00" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#ffdf00" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="gemGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff5e5e"/>
+      <stop offset="25%" stop-color="#ffb05e"/>
+      <stop offset="50%" stop-color="#5eff5e"/>
+      <stop offset="75%" stop-color="#5e5eff"/>
+      <stop offset="100%" stop-color="#ff5eff"/>
+    </linearGradient>
+  </defs>
+  <!-- 金色光环 -->
+  <circle cx="50" cy="50" r="48" fill="url(#goldAura3)"/>
+  <!-- 光芒 -->
+  <path d="M50,2 L53,20 M50,98 L47,80 M2,50 L20,53 M98,50 L80,47 M14,14 L28,28 M86,14 L72,28 M14,86 L28,72 M86,86 L72,72" 
+        stroke="#ffdf00" stroke-width="3" stroke-linecap="round"/>
+  <!-- 八角形徽章 -->
+  <path d="M50,15 L70,20 L85,35 L90,55 L85,75 L70,90 L50,95 L30,90 L15,75 L10,55 L15,35 L30,20 Z" 
+        fill="#ffdf00" stroke="#e6c900" stroke-width="2"/>
+  <!-- 内部装饰 -->
+  <path d="M50,25 L65,30 L75,40 L80,55 L75,70 L65,80 L50,85 L35,80 L25,70 L20,55 L25,40 L35,30 Z" 
+        fill="none" stroke="#ffe766" stroke-width="1"/>
+  <!-- 中心宝石 -->
+  <circle cx="50" cy="50" r="15" fill="url(#gemGradient)" stroke="#ffffff" stroke-width="2"/>
+</svg>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <!-- 超级史诗 - 带有紫色双闪电的六角形徽章 -->
+  <defs>
+    <radialGradient id="purpleAura3" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+      <stop offset="0%" stop-color="#c300ff" stop-opacity="0.8"/>
+      <stop offset="70%" stop-color="#c300ff" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#c300ff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <!-- 紫色光环 -->
+  <circle cx="50" cy="50" r="48" fill="url(#purpleAura3)"/>
+  <!-- 六角形徽章 -->
+  <path d="M50,15 L85,32.5 L85,67.5 L50,85 L15,67.5 L15,32.5 Z" 
+        fill="#c300ff" stroke="#a100d1" stroke-width="2"/>
+  <!-- 内部装饰 -->
+  <path d="M50,25 L75,37.5 L75,62.5 L50,75 L25,62.5 L25,37.5 Z" 
+        fill="none" stroke="#d54aff" stroke-width="1"/>
+  <!-- 紫色双闪电 -->
+  <path d="M65,25 L50,50 L60,50 L45,75" 
+        fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M35,25 L50,50 L40,50 L55,75" 
+        fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
