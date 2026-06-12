@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { GameSettings, PlayerState } from '../types';
+import { VERSION } from '../version';
 import { updateSettings } from '../lib/gameLogic';
 import { encryptSaveData, decryptSaveData, initializeGameData } from '../lib/saveSystem';
+import { t } from '../locales';
 import '../styles/OptionsTab.css';
 
 interface OptionsTabProps {
@@ -20,11 +22,9 @@ const OptionsTab: React.FC<OptionsTabProps> = ({
   const [importValue, setImportValue] = useState('');
   const [exportValue, setExportValue] = useState('');
   const [showConfirmReset, setShowConfirmReset] = useState(false);
-  
-  // 获取当前语言的文本
-  const getText = (zhText: string, enText: string) => {
-    return player.settings.language === 'zh' ? zhText : enText;
-  };
+
+  const lang = player.settings.language;
+  const _t = useCallback((key: string) => t(key, lang), [lang]);
   
   // 切换语言
   const handleLanguageChange = (language: 'zh' | 'en') => {
@@ -54,12 +54,12 @@ const OptionsTab: React.FC<OptionsTabProps> = ({
         onUpdatePlayer(decryptedData);
         onSaveGame();
         setImportValue('');
-        alert(getText('存档导入成功！注意：导入的存档不计入排行榜。', 'Save imported successfully! Note: Imported saves are not eligible for leaderboards.'));
+        alert(_t('save.import-success'));
       } else {
-        alert(getText('存档导入失败：无效的存档数据', 'Import failed: Invalid save data'));
+        alert(_t('save.import-failed'));
       }
     } catch (error) {
-      alert(getText('存档导入失败：', 'Import failed: ') + error);
+      alert(_t('save.import-error') + error);
     }
   };
   
@@ -80,10 +80,10 @@ const OptionsTab: React.FC<OptionsTabProps> = ({
   
   return (
     <div className="options-content">
-      <h3>{getText('选项', 'Options')}</h3>
+      <h3>{_t('options.title')}</h3>
       
       <div className="options-section">
-        <h4>{getText('语言设置', 'Language Settings')}</h4>
+        <h4>{_t('options.language')}</h4>
         <div className="options-row">
           <button 
             className={`language-button ${player.settings.language === 'zh' ? 'active' : ''}`}
@@ -101,9 +101,9 @@ const OptionsTab: React.FC<OptionsTabProps> = ({
       </div>
       
       <div className="options-section">
-        <h4>{getText('游戏设置', 'Game Settings')}</h4>
+        <h4>{_t('options.game-settings')}</h4>
         <div className="options-row">
-          <div className="option-label">{getText('自动掷出', 'Auto Roll')}</div>
+          <div className="option-label">{_t('options.auto-roll')}</div>
           <div className="toggle-switch">
             <input 
               type="checkbox" 
@@ -117,73 +117,73 @@ const OptionsTab: React.FC<OptionsTabProps> = ({
       </div>
       
       <div className="options-section">
-        <h4>{getText('存档管理', 'Save Management')}</h4>
+        <h4>{_t('options.save-management')}</h4>
         <div className="options-row">
           <button className="option-button" onClick={onSaveGame}>
-            {getText('保存', 'Save')}
+            {_t('options.save')}
           </button>
           <button className="option-button" onClick={onLoadGame}>
-            {getText('读取', 'Load')}
+            {_t('options.load')}
           </button>
         </div>
         
         <div className="export-import-section">
-          <h4>{getText('导出存档', 'Export Save')}</h4>
+          <h4>{_t('options.export-save')}</h4>
           <textarea 
             className="save-textarea" 
             value={exportValue} 
             readOnly 
-            placeholder={getText('点击导出按钮生成加密存档字符串', 'Click Export to generate encrypted save string')}
+            placeholder={_t('options.export-placeholder')}
           />
           <button className="option-button" onClick={handleExport}>
-            {getText('导出', 'Export')}
+            {_t('options.export')}
           </button>
           
-          <h4>{getText('导入存档', 'Import Save')}</h4>
+          <h4>{_t('options.import-save')}</h4>
           <textarea 
             className="save-textarea" 
             value={importValue} 
             onChange={(e) => setImportValue(e.target.value)}
-            placeholder={getText('粘贴存档字符串到此处', 'Paste save string here')}
+            placeholder={_t('options.import-placeholder')}
           />
           <div className="warning-text">
-            {getText('警告：导入的存档不计入排行榜', 'Warning: Imported saves are not eligible for leaderboards')}
+            {_t('options.import-warning')}
           </div>
           <button className="option-button" onClick={handleImport}>
-            {getText('导入', 'Import')}
+            {_t('options.import')}
           </button>
         </div>
       </div>
       
       <div className="options-section">
-        <h4>{getText('初始化', 'Initialize')}</h4>
+        <h4>{_t('options.initialize')}</h4>
         {showConfirmReset ? (
           <div className="confirm-reset">
             <div className="warning-text">
-              {getText('确定要格式化本机全部游戏数据吗？此操作不可撤销。', 'Are you sure you want to format all game data? This cannot be undone.')}
+              {_t('options.initialize-confirm')}
             </div>
             <div className="options-row">
               <button className="option-button danger" onClick={handleInitialize}>
-                {getText('确认', 'Confirm')}
+                {_t('options.confirm')}
               </button>
               <button className="option-button" onClick={handleCancelInitialize}>
-                {getText('取消', 'Cancel')}
+                {_t('options.cancel')}
               </button>
             </div>
           </div>
         ) : (
           <button className="option-button danger" onClick={handleInitialize}>
-            {getText('初始化游戏数据', 'Initialize Game Data')}
+            {_t('options.initialize-data')}
           </button>
         )}
       </div>
       
       <div className="options-section">
-        <h4>{getText('游戏信息', 'Game Information')}</h4>
+        <h4>{_t('options.game-info')}</h4>
         <div className="game-info">
-          <div>{getText('版本', 'Version')}: 1.0.0</div>
+          <div>{_t('options.version')}: {VERSION}</div>
           <div>
-            {getText('原作者', 'Original Author')}: <a href="https://github.com/Clownier" target="_blank" rel="noopener noreferrer">Clownier</a>
+            {_t('options.author')}: <a href="https://github.com/Clownier" target="_blank" rel="noopener noreferrer">Clownier</a>
           </div>
         </div>
       </div>
