@@ -23,10 +23,10 @@ import {
   calculateOfflineProgress,
   applyOfflineProgress
 } from '../lib/saveSystem';
-import { RARITIES } from '../constants';
 import { getRarityName, formatGameTime } from '../lib/format';
 import { t } from '../locales';
 import MainTab from './MainTab';
+import IndexTab from './IndexTab';
 import StatsTab from './StatsTab';
 import AchievementTab from './AchievementTab';
 import OptionsTab from './OptionsTab';
@@ -129,31 +129,6 @@ const Game: React.FC = () => {
   const handleCloseOfflineProgress = useCallback(() => {
     setShowOfflineProgress(false);
   }, []);
-
-  const renderIndexTab = () => (
-    <div className="index-content">
-      <div className="index-list">
-        {player.totalRarities.map((count, index) => {
-          const isDiscovered = count > 0;
-          const rarity = RARITIES[index];
-          const rarityName = isDiscovered
-            ? (lang === 'zh' ? rarity.rarity : rarity.rarityEn)
-            : _t('main.waiting-discover');
-          const chanceDisplay = isDiscovered ? ` - ${(1 / rarity.chance).toFixed(0)}` : '';
-
-          return (
-            <div key={index} className="index-item">
-              {isDiscovered && <Badge rarityId={index + 1} size={36} className="index-badge" />}
-              <div className="index-title" style={{ color: isDiscovered ? rarity.color : '#a4a4ac' }}>
-                #{index + 1} - {rarityName}{chanceDisplay}
-              </div>
-              <div className="index-count">{count || 0}</div>
-            </div>
-          );
-        })}
-      </div>
-    </div>
-  );
 
   const renderAchievementsTab = () => {
     const { unlockedAchievements, inProgressAchievements, getProgress, getGoal } = getAchievementData(player);
@@ -261,7 +236,9 @@ const Game: React.FC = () => {
           onRebirth={handleRebirth}
         />
       )}
-      {activeTab === 'index' && renderIndexTab()}
+      {activeTab === 'index' && (
+        <IndexTab language={lang} player={player} />
+      )}
       {activeTab === 'achievements' && renderAchievementsTab()}
       {activeTab === 'stats' && (
         <StatsTab language={lang} player={player} />

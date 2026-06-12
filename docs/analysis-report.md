@@ -6,7 +6,8 @@
 
 - **技术栈**: React 18 + TypeScript + Vite 6 + Tailwind CSS
 - **部署**: GitHub Pages (https://clownier.github.io/rarity-badge/)
-- **状态**: 核心功能已实现，部分特性未完工
+- **版本**: 1.1.1
+- **状态**: 核心功能完整，28 种稀有度全部实现
 
 ---
 
@@ -15,12 +16,12 @@
 ### 2.1 整体架构
 
 ```
-index.html → main.tsx → App.tsx → Game.tsx (主状态容器)
-                                       ├── MainTab (游戏主界面)
-                                       ├── IndexTab (稀有度索引)
-                                       ├── AchievementTab (成就面板)
-                                       ├── StatsTab (统计面板)
-                                       └── OptionsTab (设置面板)
+index.html → main.tsx → App.tsx → Game.tsx (主状态容器，274 行)
+                                        ├── MainTab (游戏主界面，独立组件)
+                                        ├── renderIndexTab (稀有度索引，内联)
+                                        ├── AchievementTab (成就面板，独立组件)
+                                        ├── StatsTab (统计面板，独立组件)
+                                        └── OptionsTab (设置面板，独立组件)
 ```
 
 **数据流**: 单向数据流。`Game.tsx` 持有 `PlayerState`，通过 props 下发给各 Tab 组件，Tab 组件通过回调 `onUpdatePlayer` 提交状态变更。
@@ -81,44 +82,43 @@ achievementPoints += max(1, floor((bestRollId - 6) / 2))
 
 | 模块 | 文件 | 状态 |
 |------|------|------|
-| 12 种稀有度（普通~非常传说） | `constants/index.ts` | ✅ |
+| 28 种稀有度（普通~我永远不会原谅你） | `constants/index.ts` | ✅ 2026-06-12 补齐 13~28 |
 | 掷出机制 + 自动掷出 | `gameLogic.ts` + `Game.tsx` | ✅ |
 | 3 种周期升级（幸运/间隔/微光） | `gameLogic.ts` | ✅ |
 | 3 种全局升级 | `gameLogic.ts` | ✅ |
 | 重生系统 | `gameLogic.ts` + `Game.tsx` | ✅ |
-| 成就系统（40项） | `achievementSystem.ts` | ✅ |
+| 成就系统（动态生成，随 RARITIES 扩展） | `achievementSystem.ts` | ✅ |
 | 存档系统 (localStorage) | `saveSystem.ts` | ✅ |
+| 存档迁移（totalRarities 自动补零） | `saveSystem.ts` | ✅ 2026-06-12 |
 | AES 加密导入/导出 | `saveSystem.ts` | ✅ |
-| 中英文双语切换 | `Game.tsx` 内 `getText()` | ✅ |
+| 中英文双语切换（独立 locale 文件） | `locales/{zh,en,index}.ts` | ✅ |
 | 离线进度计算 | `saveSystem.ts` | ✅ |
-| 最近10次/最佳掷出记录 | `Game.tsx` | ✅ |
-| 12 个 SVG 徽章图案 | `assets/badges/` | ✅ |
+| 最近10次/最佳掷出记录 | `MainTab.tsx` | ✅ |
+| 28 个 SVG 徽章图案 | `assets/badges/badge_1.svg ~ badge_28.svg` | ✅ |
+| 版本信息显示 + `/version` 端点 | `version.ts` + `public/version` | ✅ |
+| formatNumber 支持 K/M/B/T | `gameLogic.ts` | ✅ |
 | 响应式 CSS | `styles/*.css` | ✅ |
 
 ### 3.2 未实现 / 不完整功能 🔶
 
 | 功能 | 设计文档要求 | 现状 |
 |------|------------|------|
-| 28 种稀有度 | 编号 13~28（传说 beyond ~ 我永远不会原谅你） | 仅实现了 12 种（缺少 13~28 的 SVG 和常量） |
 | 排行榜系统 | 后端 + API + 前100名显示 | 完全未实现，代码中仅有 `leaderboardParticipation` 字段 |
-| 图表可视化 | 稀有度分布饼图、掷出历史折线图 | Recharts 已安装但未使用 |
+| 图表可视化 | 稀有度分布饼图、掷出历史折线图 | 未实现 |
 | 音效系统 | 音效开关、音量调节 | 设置在 UI 中存在，无实际音效 |
-| 自动保存 | 可配置频率的设置 | 设置中有 `autoSaveInterval` 但 `setupAutoSave` 未被调用 |
 | 统计分析 | 游戏总时长、资源获取趋势图 | 基础统计有，图表未实现 |
+| 自动保存过时 | `setupAutoSave` 闭包捕获旧状态 | 已识别的 bug，尚未修复 |
 
-### 3.3 代码质量问题 ⚠️
+### 3.3 代码质量现状 ⚠️
 
 | 问题 | 位置 | 说明 |
 |------|------|------|
-| 重复的 Toast 类型 | `use-toast.ts` 第 8~13 行 | 类型从缺失的 `ui/toast.tsx` 移入，但原类型定义更完整，这个文件实际上未被使用 |
-| 未使用的 `useMobile` | `hooks/use-mobile.tsx` | 定义了但未被任何组件使用 |
-| 未使用的依赖 | `package.json` | recharts, cmdk, embla-carousel-react, vaul, sonner, next-themes, react-day-picker, react-resizable-panels, lucide-react 等约 10 个包已安装但未在源码中引用 |
-| CSS 变量冗余 | `index.css` | sidebar 颜色变量（亮/暗两套）占大量空间但未被使用 |
-| `AchievementTab.css` 样式未导入 | `main.tsx` | 未导入 `AchievementTab.css`（但 Game.css 中包含了成就相关样式，实际未发现问题） |
-| 空 `App.css` | `src/App.css` | 空文件仅占位 |
-| 多语言内嵌而非独立文件 | `Game.tsx` | `getText()` 函数直接在组件内硬编码中英文字符串，无独立 locale 文件，维护性差 |
-| `formatNumber` 作用范围有限 | `gameLogic.ts` | 仅支持 K/M/B 三级，超过 B 会显示长小数 |
-| 离线进度不完整 | `Game.tsx` | 离线弹窗可关闭，但微光增加并未实际应用到游戏状态 |
+| 未使用的 `use-toast.ts` | `src/hooks/use-toast.ts` | 200 行 toast 通知系统完全未使用 |
+| 未使用的 `cn()` | `src/lib/utils.ts` | 已定义但从未导入 |
+| 未使用的依赖 | `package.json` | `class-variance-authority`、`tailwindcss-animate` 已安装但未使用 |
+| `formatNumber` 上限 T 级后 | `gameLogic.ts` | 超过 1e12 会显示长小数 |
+| 离线进度不完整 | `saveSystem.ts` | 不会发现新稀有度、不解锁成就 |
+| `IndexTab` 仍内联 | `Game.tsx` | 尚未拆分为独立组件 |
 
 ---
 
@@ -130,10 +130,8 @@ achievementPoints += max(1, floor((bestRollId - 6) / 2))
 react, react-dom           → UI 框架
 crypto-js                  → 存档加密
 clsx, tailwind-merge       → 样式工具
-class-variance-authority   → 组件变体
-tailwindcss-animate        → 动画
 typescript                 → 类型
-vite, vite-plugin-svgr     → 构建
+vite                       → 构建
 tailwindcss, autoprefixer, postcss → 样式
 eslint                     → 代码检查
 ```
@@ -141,52 +139,44 @@ eslint                     → 代码检查
 ### 4.2 已安装但未使用的依赖（可安全移除，节省 ~5MB）
 
 ```
-lucide-react               → 图标库
-recharts                   → 图表
-cmdk                       → 命令面板
-embla-carousel-react       → 轮播
-input-otp                  → OTP 输入
-next-themes                → 主题切换
-react-day-picker           → 日期选择
-react-resizable-panels     → 可调整面板
-sonner                     → 通知
-vaul                       → 抽屉
-@radix-ui/* (大部分)       → 无障碍 UI
+class-variance-authority   → 组件变体
+tailwindcss-animate        → 动画
+vite-plugin-svgr           → SVG 作为组件（当前用 ?url 导入）
 ```
 
 ---
 
 ## 五、设计文档与实际实现的差距
 
-`rarity_badge_final_design_document.md` 是完整设计蓝图，但实际代码有大量缩减：
+`rarity_badge_final_design_document.md` 是完整设计蓝图，以下是当前代码的差距：
 
 | 设计文档 | 代码实现 |
 |---------|---------|
-| 28 种稀有度（概率至 1/134M） | 12 种（概率至 1/2048） |
-| 完整 i18n locale 目录结构 | 内嵌 `getText()` 字符串 |
-| `services/leaderboardService.ts` | 未实现 |
+| 28 种稀有度（概率至 1/134M） | ✅ 已全部实现 |
+| 完整 i18n locale 目录结构 | ✅ `src/locales/{zh,en,index}.ts` |
+| `services/leaderboardService.ts` | ❌ 未实现 |
 | `utils/crypto.ts` | 加密逻辑在 `saveSystem.ts` 中 |
-| `locales/zh/` + `locales/en/` | 未创建 |
-| `components/Game.tsx` + `MainTab.tsx` + `StatsTab.tsx` | 主界面和统计内嵌在 `Game.tsx` 中 |
-| 图表可视化 | 未实现 |
-| 音效系统 | 未实现 |
-| 排行榜后端 | 未实现 |
+| `components/Game.tsx` + `MainTab.tsx` + `StatsTab.tsx` | ✅ 已拆分 |
+| 图表可视化 | ❌ 未实现 |
+| 音效系统 | ❌ 未实现 |
+| 排行榜后端 | ❌ 未实现 |
 
 ---
 
 ## 六、推荐改进方向
 
 ### 高优先级
-1. **补齐 13~28 号稀有度** — 设计文档已定义完整，缺 SVG 和常量
-2. **清理无用依赖** — 移除 ~10 个未使用的包以减小体积
-3. **修复自动保存** — `setupAutoSave` 功能未接入
+1. ~~补齐 13~28 号稀有度~~ ✅ 已完成
+2. ~~清理无用依赖~~ ✅ 已完成（精简 40 个包）
+3. ~~提取 locale 文件~~ ✅ 已完成
+4. **修复自动保存** — `setupAutoSave` 闭包捕获过时状态
+5. **修复离线进度** — 不发现新稀有度、不解锁成就
 
 ### 中优先级
-4. **提取 locale 文件** — 将内嵌的中英文字符串移入独立文件
-5. **实现排行榜基础版** — 至少支持本地排行榜或接入简单后端
-6. **图表可视化** — 利用已安装的 recharts 实现分布图/趋势图
+6. **实现排行榜基础版** — 至少支持本地排行榜或接入简单后端
+7. **图表可视化** — 稀有度分布饼图、掷出历史折线图
+8. **实现音效系统** — 接入 Web Audio API
+9. **清理 `use-toast.ts` 死代码** — 200 行未使用
 
 ### 低优先级
-7. **音效系统** — 接入 Web Audio API
-8. **离线进度完整实现** — 将微光增加真正应用到状态
-9. **GitHub Actions 修复** — 排查 runner 无法分配的问题
+10. **GitHub Actions 修复** — 排查 runner 无法分配的问题
