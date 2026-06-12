@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="glow27" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#474a6e" stop-opacity="0.8"/>
+      <stop offset="60%" stop-color="#474a6e" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#474a6e" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <circle cx="50" cy="50" r="48" fill="url(#glow27)"/>
+  <path d="M20,30 Q38,22 50,25 Q62,22 80,30 Q75,45 80,50 Q75,62 80,70 Q62,78 50,75 Q38,78 20,70 Q25,62 20,50 Q25,45 20,30 Z" fill="#474a6e" stroke="#2a2d4a" stroke-width="3"/>
+  <!-- 网格 -->
+  <line x1="30" y1="40" x2="70" y2="40" stroke="#7a7da5" stroke-width="1.5"/>
+  <line x1="30" y1="50" x2="70" y2="50" stroke="#7a7da5" stroke-width="1.5"/>
+  <line x1="30" y1="60" x2="70" y2="60" stroke="#7a7da5" stroke-width="1.5"/>
+  <line x1="35" y1="35" x2="35" y2="65" stroke="#7a7da5" stroke-width="1.5"/>
+  <line x1="50" y1="30" x2="50" y2="70" stroke="#7a7da5" stroke-width="1.5"/>
+  <line x1="65" y1="35" x2="65" y2="65" stroke="#7a7da5" stroke-width="1.5"/>
+</svg>

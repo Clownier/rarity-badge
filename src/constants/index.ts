@@ -110,6 +110,150 @@ export const RARITIES: Rarity[] = [
     color: "#ffba42",
     badgeDescription: "带有金色光芒的八角形徽章",
     badgeDescriptionEn: "Octagonal badge with golden rays"
+  },
+  { 
+    id: 13, 
+    rarity: "超级传说", 
+    rarityEn: "Super Legendary", 
+    chance: 1/4096, 
+    color: "#ffe600",
+    badgeDescription: "带有金色双光芒的八角形徽章",
+    badgeDescriptionEn: "Octagonal badge with double golden rays"
+  },
+  { 
+    id: 14, 
+    rarity: "极致传说", 
+    rarityEn: "Ultra Legendary", 
+    chance: 1/8192, 
+    color: "#fff069",
+    badgeDescription: "带有金色三光芒的八角形徽章",
+    badgeDescriptionEn: "Octagonal badge with triple golden rays"
+  },
+  { 
+    id: 15, 
+    rarity: "超越理解的传说", 
+    rarityEn: "Legendary Beyond Comprehension", 
+    chance: 1/16384, 
+    color: "#fff7cf",
+    badgeDescription: "带有金色光环的十角形徽章",
+    badgeDescriptionEn: "Decagonal badge with a golden aura"
+  },
+  { 
+    id: 16, 
+    rarity: "神话", 
+    rarityEn: "Mythical", 
+    chance: 1/32768, 
+    color: "#ff6666",
+    badgeDescription: "带有红色火焰的钻石形徽章",
+    badgeDescriptionEn: "Diamond-shaped badge with a red flame"
+  },
+  { 
+    id: 17, 
+    rarity: "非常神话", 
+    rarityEn: "Very Mythical", 
+    chance: 1/65536, 
+    color: "#ff4242",
+    badgeDescription: "带有红色双火焰的钻石形徽章",
+    badgeDescriptionEn: "Diamond-shaped badge with double red flames"
+  },
+  { 
+    id: 18, 
+    rarity: "超级神话", 
+    rarityEn: "Super Mythical", 
+    chance: 1/131072, 
+    color: "#ff2b2b",
+    badgeDescription: "带有红色三火焰的钻石形徽章",
+    badgeDescriptionEn: "Diamond-shaped badge with triple red flames"
+  },
+  { 
+    id: 19, 
+    rarity: "极致神话", 
+    rarityEn: "Ultra Mythical", 
+    chance: 1/262144, 
+    color: "#ff0000",
+    badgeDescription: "带有红色光环的钻石形徽章",
+    badgeDescriptionEn: "Diamond-shaped badge with a red aura"
+  },
+  { 
+    id: 20, 
+    rarity: "闻所未闻...", 
+    rarityEn: "Unheard-of...", 
+    chance: 1/524288, 
+    color: "#961111",
+    badgeDescription: "带有黑色边缘的不规则形徽章",
+    badgeDescriptionEn: "Irregular-shaped badge with black edges"
+  },
+  { 
+    id: 21, 
+    rarity: "黑暗", 
+    rarityEn: "Darkness", 
+    chance: 1/1048576, 
+    color: "#454545",
+    badgeDescription: "带有黑色漩涡的不规则形徽章",
+    badgeDescriptionEn: "Irregular-shaped badge with a black swirl"
+  },
+  { 
+    id: 22, 
+    rarity: "绝对黑暗", 
+    rarityEn: "Absolute Darkness", 
+    chance: 1/2097152, 
+    color: "#000000",
+    badgeDescription: "纯黑色的不规则形徽章",
+    badgeDescriptionEn: "Solid black irregular-shaped badge"
+  },
+  { 
+    id: 23, 
+    rarity: "我已一无所有...", 
+    rarityEn: "Now I Have Nothing...", 
+    chance: 1/4194304, 
+    color: "#ffffff",
+    badgeDescription: "带有裂缝的白色不规则形徽章",
+    badgeDescriptionEn: "White irregular-shaped badge with cracks"
+  },
+  { 
+    id: 24, 
+    rarity: "甚至没有时间...", 
+    rarityEn: "Not Even Time...", 
+    chance: 1/8388608, 
+    color: "#6f00ff",
+    badgeDescription: "带有紫色时钟图案的不规则形徽章",
+    badgeDescriptionEn: "Irregular-shaped badge with a purple clock pattern"
+  },
+  { 
+    id: 25, 
+    rarity: "你为什么要这样做？", 
+    rarityEn: "Why Did You Do This?", 
+    chance: 1/16777216, 
+    color: "#8455c2",
+    badgeDescription: "带有问号图案的不规则形徽章",
+    badgeDescriptionEn: "Irregular-shaped badge with a question mark pattern"
+  },
+  { 
+    id: 26, 
+    rarity: "你撕裂了结构...", 
+    rarityEn: "You Tore Apart The Fabric...", 
+    chance: 1/33554432, 
+    color: "#4f3f8a",
+    badgeDescription: "带有撕裂图案的不规则形徽章",
+    badgeDescriptionEn: "Irregular-shaped badge with a torn pattern"
+  },
+  { 
+    id: 27, 
+    rarity: "那维系着一切...", 
+    rarityEn: "That Holds Everything Together...", 
+    chance: 1/67108864, 
+    color: "#474a6e",
+    badgeDescription: "带有网格图案的不规则形徽章",
+    badgeDescriptionEn: "Irregular-shaped badge with a grid pattern"
+  },
+  { 
+    id: 28, 
+    rarity: "我永远不会原谅你。", 
+    rarityEn: "And I'll Never Forgive You.", 
+    chance: 1/134217728, 
+    color: "#4a615b",
+    badgeDescription: "带有破碎心形的不规则形徽章",
+    badgeDescriptionEn: "Irregular-shaped badge with a broken heart pattern"
   }
 ];
 

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="glow13" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffe600" stop-opacity="1"/>
+      <stop offset="60%" stop-color="#ffe600" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#ffe600" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <circle cx="50" cy="50" r="48" fill="url(#glow13)"/>
+  <path d="M50,2 L53,18 M50,98 L47,82 M2,50 L18,53 M98,50 L82,47 M10,10 L25,25 M90,10 L75,25 M10,90 L25,75 M90,90 L75,75" stroke="#ffe600" stroke-width="3" stroke-linecap="round"/>
+  <path d="M50,8 L55,20 M50,92 L45,80 M8,50 L20,55 M92,50 L80,45" stroke="#ffeb33" stroke-width="2" stroke-linecap="round"/>
+  <path d="M50,15 L70,20 L85,35 L90,55 L85,75 L70,90 L50,95 L30,90 L15,75 L10,55 L15,35 L30,20 Z" fill="#ffe600" stroke="#ccb800" stroke-width="2"/>
+  <path d="M50,25 L65,30 L75,40 L80,55 L75,70 L65,80 L50,85 L35,80 L25,70 L20,55 L25,40 L35,30 Z" fill="none" stroke="#fff069" stroke-width="1.5"/>
+  <path d="M50,35 L58,38 L62,46 L60,54 L54,58 L46,58 L40,54 L38,46 L42,38 Z" fill="#ffffff" stroke="#ccb800" stroke-width="1"/>
+</svg>

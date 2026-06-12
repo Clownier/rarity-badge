@@ -370,7 +370,9 @@ export const updateSettings = (state: PlayerState, newSettings: Partial<GameSett
 
 // 格式化数字
 export const formatNumber = (num: number): string => {
-  if (num >= 1e9) {
+  if (num >= 1e12) {
+    return (num / 1e12).toFixed(2) + 'T';
+  } else if (num >= 1e9) {
     return (num / 1e9).toFixed(2) + 'B';
   } else if (num >= 1e6) {
     return (num / 1e6).toFixed(2) + 'M';
