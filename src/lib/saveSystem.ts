@@ -1,5 +1,6 @@
 import { PlayerState } from '../types';
 import CryptoJS from 'crypto-js';
+import { RARITIES } from '../constants';
 
 // 密钥（实际应用中应该使用更安全的方式存储）
 const ENCRYPTION_KEY = 'rarity-badge-game-secret-key';
@@ -20,7 +21,16 @@ export const loadGame = (): PlayerState | null => {
     const gameData = localStorage.getItem('rarityBadgeGameSave');
     if (!gameData) return null;
     
-    return JSON.parse(gameData) as PlayerState;
+    const state = JSON.parse(gameData) as PlayerState;
+
+    // 迁移：如果 totalRarities 长度不匹配 RARITIES，补齐
+    if (state.totalRarities.length !== RARITIES.length) {
+      const padded = [...state.totalRarities];
+      while (padded.length < RARITIES.length) padded.push(0);
+      state.totalRarities = padded;
+    }
+
+    return state;
   } catch (error) {
     console.error('加载游戏失败:', error);
     return null;
