@@ -5,15 +5,12 @@ import {
   upgradeLuck,
   upgradeInterval,
   upgradeShimmer,
-  upgradeGlobalLuck,
-  upgradeGlobalInterval,
-  upgradeGlobalShimmer,
   formatNumber
 } from '../lib/gameLogic';
 import {
   updateGameStateWithAchievements,
   rollWithAchievements,
-  rebirthWithAchievements,
+  regenerateWithAchievements,
   getAchievementData
 } from '../lib/gameIntegration';
 import {
@@ -95,20 +92,8 @@ const Game: React.FC = () => {
     setPlayer(prevPlayer => upgradeShimmer(prevPlayer));
   }, []);
 
-  const handleUpgradeGlobalLuck = useCallback(() => {
-    setPlayer(prevPlayer => upgradeGlobalLuck(prevPlayer));
-  }, []);
-
-  const handleUpgradeGlobalInterval = useCallback(() => {
-    setPlayer(prevPlayer => upgradeGlobalInterval(prevPlayer));
-  }, []);
-
-  const handleUpgradeGlobalShimmer = useCallback(() => {
-    setPlayer(prevPlayer => upgradeGlobalShimmer(prevPlayer));
-  }, []);
-
   const handleRebirth = useCallback(() => {
-    setPlayer(prevPlayer => rebirthWithAchievements(prevPlayer));
+    setPlayer(prevPlayer => regenerateWithAchievements(prevPlayer));
   }, []);
 
   const handleSaveGame = useCallback(() => {
@@ -182,7 +167,7 @@ const Game: React.FC = () => {
         <h1>{_t('game.title')}</h1>
         <div className="resources-display">
           <span className="shimmer-display">{formatNumber(player.shimmer)} {_t('main.shimmer')}</span>
-          <span className="ap-display">{player.achievementPoints} {_t('main.ap')}</span>
+          <span className="ap-display">{formatNumber(player.achievementPoints)} {_t('main.glisten')}</span>
         </div>
       </div>
 
@@ -230,10 +215,7 @@ const Game: React.FC = () => {
           onUpgradeLuck={handleUpgradeLuck}
           onUpgradeInterval={handleUpgradeInterval}
           onUpgradeShimmer={handleUpgradeShimmer}
-          onUpgradeGlobalLuck={handleUpgradeGlobalLuck}
-          onUpgradeGlobalInterval={handleUpgradeGlobalInterval}
-          onUpgradeGlobalShimmer={handleUpgradeGlobalShimmer}
-          onRebirth={handleRebirth}
+          onRegenerate={handleRebirth}
         />
       )}
       {activeTab === 'index' && (

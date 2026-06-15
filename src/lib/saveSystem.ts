@@ -1,6 +1,7 @@
 import { PlayerState } from '../types';
 import CryptoJS from 'crypto-js';
 import { RARITIES } from '../constants';
+import { initializePlayerState } from './gameLogic';
 
 // 密钥（实际应用中应该使用更安全的方式存储）
 const ENCRYPTION_KEY = 'rarity-badge-game-secret-key';
@@ -21,7 +22,13 @@ export const loadGame = (): PlayerState | null => {
     const gameData = localStorage.getItem('rarityBadgeGameSave');
     if (!gameData) return null;
     
-    const state = JSON.parse(gameData) as PlayerState;
+    const raw = JSON.parse(gameData);
+    const defaults = initializePlayerState();
+
+    // 递归合并：用 old 值覆盖 default，缺失字段用 default 补齐
+    const merged = deepMerge(defaults, raw);
+
+    const state = merged as PlayerState;
 
     // 迁移：如果 totalRarities 长度不匹配 RARITIES，补齐
     if (state.totalRarities.length !== RARITIES.length) {
@@ -36,6 +43,20 @@ export const loadGame = (): PlayerState | null => {
     return null;
   }
 };
+
+function deepMerge(target: Record<string, any>, source: Record<string, any>): Record<string, any> {
+  const result = { ...target };
+  for (const key of Object.keys(result)) {
+    if (key in source) {
+      if (typeof result[key] === 'object' && result[key] !== null && !Array.isArray(result[key])) {
+        result[key] = deepMerge(result[key], source[key]);
+      } else {
+        result[key] = source[key];
+      }
+    }
+  }
+  return result;
+}
 
 // 加密存档数据
 export const encryptSaveData = (state: PlayerState): string => {
@@ -133,14 +154,14 @@ export const calculateOfflineProgress = (
   }
   
   // 计算离线期间可能的掷出次数
-  const effectiveInterval = state.rollInterval / state.globalIntervalReduction;
+  const effectiveInterval = state.rollInterval;
   const rollsMade = Math.floor(timeOffline / 1000 / effectiveInterval);
   
   // 计算平均每次掷出获得的微光
   // 这里使用一个简化的计算方式，实际游戏中可能需要更复杂的计算
   const averageRarityValue = 1.5; // 假设平均稀有度值
   const averageShimmerPerRoll = 
-    averageRarityValue * state.shimmerMulti * state.globalShimmerMulti;
+    averageRarityValue * state.shimmerMulti;
   
   // 计算离线获得的总微光（应用离线效率系数0.8）
   const shimmerGained = rollsMade * averageShimmerPerRoll * 0.8;

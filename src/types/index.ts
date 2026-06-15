@@ -9,6 +9,23 @@ export interface Rarity {
   badgeDescriptionEn: string;
 }
 
+// 转生稀有度
+export interface RegenRarity {
+  id: number;
+  rarity: string;
+  rarityEn: string;
+  chance: number;
+  color: string;
+}
+
+// 掷出结果
+export interface RollResult {
+  id: number;
+  rarity: string;
+  chance: number;
+  color: string;
+}
+
 // 玩家状态接口
 export interface PlayerState {
   // 基础数据
@@ -32,34 +49,34 @@ export interface PlayerState {
     shimmer: { level: number; price: number };
   };
   
-  // 全局升级
-  globalLuck: number;
-  globalIntervalReduction: number;
-  globalShimmerMulti: number;
+  // 转生相关
+  regenLuck: number;
+  regenShimmerMulti: number;
+  regenRLuck: number;
+  regenGlistenMulti: number;
   
-  // 全局升级价格
-  globalUpgrades: {
+  // 转生升级价格
+  regenUpgrades: {
     luck: { level: number; price: number };
-    interval: { level: number; price: number };
     shimmer: { level: number; price: number };
+    regenLuck: { level: number; price: number };
+    achievementPoints: { level: number; price: number };
   };
+  
+  // 转生稀有度记录
+  totalRegenRarities: number[];
+  last10RegenRolls: RollResult[];
+  bestRegenRoll: RollResult;
+  
+  // 功能解锁
+  unlocked: { regen: boolean };
   
   // 掷出记录
   rollTimer: number;
-  last10Rolls: Array<{
-    id: number;
-    rarity: string;
-    chance: number;
-    color: string;
-  }>;
+  last10Rolls: RollResult[];
   
   // 最佳掷出
-  bestRoll: {
-    id: number;
-    rarity: string;
-    chance: number;
-    color: string;
-  };
+  bestRoll: RollResult;
   
   // 稀有度发现记录
   totalRarities: number[];

@@ -56,18 +56,22 @@ const StatsTab: React.FC<StatsTabProps> = ({ language, player }) => {
       </div>
 
       <div className="stats-section">
-        <h4>{_t('stats.global-section')}</h4>
+        <h4>{_t('stats.regen-section')}</h4>
         <div className="stats-row">
-          <span className="stats-label">{_t('stats.global-luck-level')}</span>
-          <span className="stats-value">{player.globalUpgrades.luck.level}</span>
+          <span className="stats-label">{_t('stats.regen-luck-level')}</span>
+          <span className="stats-value">{player.regenUpgrades.luck.level}</span>
         </div>
         <div className="stats-row">
-          <span className="stats-label">{_t('stats.global-interval-level')}</span>
-          <span className="stats-value">{player.globalUpgrades.interval.level}</span>
+          <span className="stats-label">{_t('stats.regen-shimmer-level')}</span>
+          <span className="stats-value">{player.regenUpgrades.shimmer.level}</span>
         </div>
         <div className="stats-row">
-          <span className="stats-label">{_t('stats.global-shimmer-level')}</span>
-          <span className="stats-value">{player.globalUpgrades.shimmer.level}</span>
+          <span className="stats-label">{_t('stats.regen-rluck-level')}</span>
+          <span className="stats-value">{player.regenUpgrades.regenLuck.level}</span>
+        </div>
+        <div className="stats-row">
+          <span className="stats-label">{_t('stats.regen-glisten-level')}</span>
+          <span className="stats-value">{player.regenUpgrades.achievementPoints.level}</span>
         </div>
       </div>
     </div>

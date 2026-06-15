@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { PlayerState } from '../types';
-import { formatNumber, calculateRebirthPoints } from '../lib/gameLogic';
+import { formatNumber } from '../lib/gameLogic';
 import { getRarityName } from '../lib/format';
 import { t } from '../locales';
 import Badge from './Badge';
@@ -12,15 +12,12 @@ interface MainTabProps {
   onUpgradeLuck: () => void;
   onUpgradeInterval: () => void;
   onUpgradeShimmer: () => void;
-  onUpgradeGlobalLuck: () => void;
-  onUpgradeGlobalInterval: () => void;
-  onUpgradeGlobalShimmer: () => void;
-  onRebirth: () => void;
+  onRegenerate: () => void;
 }
 
 const MainTab: React.FC<MainTabProps> = ({
   language, player, onRoll, onUpgradeLuck, onUpgradeInterval, onUpgradeShimmer,
-  onUpgradeGlobalLuck, onUpgradeGlobalInterval, onUpgradeGlobalShimmer, onRebirth
+  onRegenerate
 }) => {
   const _t = useCallback((key: string) => t(key, language), [language]);
 
@@ -71,41 +68,6 @@ const MainTab: React.FC<MainTabProps> = ({
         </div>
       </div>
 
-      <div className="upgrades-section">
-        <h3>{_t('main.global-upgrades')}</h3>
-        <div className="upgrades">
-          <div className="upgrade-item global" onClick={onUpgradeGlobalLuck}>
-            <div className="upgrade-title">{_t('main.global-luck')}</div>
-            <div className="upgrade-description">
-              {player.globalLuck.toFixed(1)}x &gt; {(player.globalLuck + 0.1).toFixed(1)}x
-            </div>
-            <div className="upgrade-price">
-              {player.globalUpgrades.luck.price} {_t('main.ap')}
-            </div>
-          </div>
-
-          <div className="upgrade-item global" onClick={onUpgradeGlobalInterval}>
-            <div className="upgrade-title">{_t('main.global-interval')}</div>
-            <div className="upgrade-description">
-              {player.globalIntervalReduction.toFixed(2)}x &gt; {(player.globalIntervalReduction + 0.05).toFixed(2)}x
-            </div>
-            <div className="upgrade-price">
-              {player.globalUpgrades.interval.price} {_t('main.ap')}
-            </div>
-          </div>
-
-          <div className="upgrade-item global" onClick={onUpgradeGlobalShimmer}>
-            <div className="upgrade-title">{_t('main.global-shimmer')}</div>
-            <div className="upgrade-description">
-              {player.globalShimmerMulti.toFixed(1)}x &gt; {(player.globalShimmerMulti + 0.2).toFixed(1)}x
-            </div>
-            <div className="upgrade-price">
-              {player.globalUpgrades.shimmer.price} {_t('main.ap')}
-            </div>
-          </div>
-        </div>
-      </div>
-
       <div className="recent-rolls">
         <h3>{_t('main.last-10-rolls')}</h3>
         <div className="rolls-list">
@@ -131,9 +93,17 @@ const MainTab: React.FC<MainTabProps> = ({
       </div>
 
       {player.bestRoll.id >= 7 && (
-        <div className="rebirth-button-container">
-          <button className="rebirth-button" onClick={onRebirth}>
-            {_t('main.rebirth')} (+{calculateRebirthPoints(player.bestRoll.id)} {_t('main.ap')})
+        <div className="regeneration-section">
+          <h3>{_t('main.regeneration')}</h3>
+          <div className="ap-display">{formatNumber(player.achievementPoints)} {_t('main.glisten')}</div>
+          <button
+            className="regeneration-button"
+            onClick={onRegenerate}
+            disabled={player.bestRoll.id < 8}
+          >
+            {player.bestRoll.id >= 8
+              ? `${_t('main.regenerate')} (${(Math.pow(1.3, player.bestRoll.id - 7) * player.regenRLuck).toFixed(1)}x ${_t('main.luck')})`
+              : _t('main.regen-requires-super-epic')}
           </button>
         </div>
       )}
