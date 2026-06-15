@@ -44,6 +44,12 @@ const zh: Record<string, string> = {
   'stats.regen-shimmer-level': '重生微光等级',
   'stats.regen-rluck-level': '重生重置运等级',
   'stats.regen-glisten-level': '重生成就点等级',
+  'stats.rarity-distribution': '稀有度分布',
+  'stats.regen-distribution': '重生稀有度分布',
+  'stats.last-10-rolls': '最近掷出',
+  'stats.last-10-regen-rolls': '最近重生掷出',
+  'stats.regen-locked': '重生后解锁',
+  'stats.chart-other': '其他',
 
   'offline.title': '离线进度',
   'offline.time': '离线时长',

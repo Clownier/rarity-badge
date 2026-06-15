@@ -2,6 +2,9 @@ import React, { useCallback } from 'react';
 import { PlayerState } from '../types';
 import { formatGameTime } from '../lib/format';
 import { t } from '../locales';
+import RarityPieChart from './RarityPieChart';
+import RegenBarChart from './RegenBarChart';
+import RollStrip from './RollStrip';
 
 interface StatsTabProps {
   language: 'zh' | 'en';
@@ -72,6 +75,42 @@ const StatsTab: React.FC<StatsTabProps> = ({ language, player }) => {
         <div className="stats-row">
           <span className="stats-label">{_t('stats.regen-glisten-level')}</span>
           <span className="stats-value">{player.regenUpgrades.achievementPoints.level}</span>
+        </div>
+      </div>
+
+      <div className="stats-section">
+        <h4>{_t('stats.rarity-distribution')}</h4>
+        <div className="stats-chart-scroll">
+          <RarityPieChart totalRarities={player.totalRarities} language={language} />
+        </div>
+      </div>
+
+      <div className="stats-section">
+        <h4>{_t('stats.regen-distribution')}</h4>
+        <div className="stats-chart-scroll">
+          {player.totalRebirths > 0 ? (
+            <RegenBarChart totalRegenRarities={player.totalRegenRarities} language={language} />
+          ) : (
+            <span className="stats-locked">{_t('stats.regen-locked')}</span>
+          )}
+        </div>
+      </div>
+
+      <div className="stats-section">
+        <h4>{_t('stats.last-10-rolls')}</h4>
+        <div className="stats-chart-scroll">
+          <RollStrip rolls={player.last10Rolls} language={language} />
+        </div>
+      </div>
+
+      <div className="stats-section">
+        <h4>{_t('stats.last-10-regen-rolls')}</h4>
+        <div className="stats-chart-scroll">
+          {player.totalRebirths > 0 ? (
+            <RollStrip rolls={player.last10RegenRolls} language={language} />
+          ) : (
+            <span className="stats-locked">{_t('stats.regen-locked')}</span>
+          )}
         </div>
       </div>
     </div>

@@ -44,6 +44,12 @@ const en: Record<string, string> = {
   'stats.regen-shimmer-level': 'Rebirth Shimmer Level',
   'stats.regen-rluck-level': 'Rebirth Re-roll Luck Level',
   'stats.regen-glisten-level': 'Rebirth AP Level',
+  'stats.rarity-distribution': 'Rarity Distribution',
+  'stats.regen-distribution': 'Rebirth Rarity Distribution',
+  'stats.last-10-rolls': 'Last 10 Rolls',
+  'stats.last-10-regen-rolls': 'Last 10 Rebirth Rolls',
+  'stats.regen-locked': 'Unlocked after rebirth',
+  'stats.chart-other': 'Other',
 
   'offline.title': 'Offline Progress',
   'offline.time': 'Time Offline',
