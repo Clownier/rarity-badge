@@ -1,7 +1,5 @@
 import { useMemo } from 'react';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, Cell } from 'recharts';
-import type { TooltipProps } from 'recharts';
-import type { ValueType, NameType } from 'recharts/types/component/DefaultTooltipContent';
 import { REGENRARITIES } from '../constants';
 
 interface RegenBarChartProps {
@@ -9,7 +7,13 @@ interface RegenBarChartProps {
   language: 'zh' | 'en';
 }
 
-function CustomTooltip({ active, payload }: TooltipProps<ValueType, NameType>) {
+interface BarData {
+  name: string;
+  count: number;
+  color: string;
+}
+
+function CustomTooltip({ active, payload }: { active?: boolean; payload?: Array<{ payload: BarData }> }) {
   if (!active || !payload?.length) return null;
   const d = payload[0].payload;
   return (
@@ -28,7 +32,7 @@ function CustomTooltip({ active, payload }: TooltipProps<ValueType, NameType>) {
 }
 
 export default function RegenBarChart({ totalRegenRarities, language }: RegenBarChartProps) {
-  const data = useMemo(() =>
+  const data: BarData[] = useMemo(() =>
     totalRegenRarities.map((count, i) => {
       const regen = REGENRARITIES[i];
       return {

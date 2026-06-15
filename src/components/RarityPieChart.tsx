@@ -1,7 +1,5 @@
 import { useMemo } from 'react';
 import { PieChart, Pie, Cell, Tooltip, Legend } from 'recharts';
-import type { TooltipProps } from 'recharts';
-import type { ValueType, NameType } from 'recharts/types/component/DefaultTooltipContent';
 import { RARITIES } from '../constants';
 import { t } from '../locales';
 
@@ -17,9 +15,9 @@ interface ChartSlice {
   total: number;
 }
 
-function CustomTooltip({ active, payload }: TooltipProps<ValueType, NameType>) {
+function CustomTooltip({ active, payload }: { active?: boolean; payload?: Array<{ payload: ChartSlice }> }) {
   if (!active || !payload?.length) return null;
-  const d = payload[0].payload as ChartSlice;
+  const d = payload[0].payload;
   return (
     <div style={{
       background: '#222',
